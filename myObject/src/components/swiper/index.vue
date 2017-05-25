@@ -2,7 +2,8 @@
   <div class="swiper-container swiper">
     <ul class="swiper-wrapper">
       <li v-for="item in swiperSlide" class="swiper-slide">
-        <img :src="item.Picture">
+        <img v-if="item.Picture" :src="item.Picture">
+        <img v-else :src="item.picture">
       </li>
     </ul>
     <div class="swiper-pagination"></div>

@@ -1,14 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/view/home/'
-import typeIndex from '@/view/type/'
-import shopIndex from '@/view/shopcar/'
-import myIndex from '@/view/myInfo/'
-import Login from '@/view/Login/'
-import typeTab from '@/view/type/component/typeTab'
-import pinpaiTab from '@/view/type/component/pinpaiTab'
-import IndexTab from '@/view/home/component/IndexTab'
-import jujiaTab from '@/view/home/component/jujiaTab'
+import Home from '@/view/home/' //页面首页
+import typeIndex from '@/view/type/' //分类首页
+import shopIndex from '@/view/shopcar/' //购物车首页
+import myIndex from '@/view/myInfo/' //我的首页
+import Login from '@/view/Login/' //登录首页
+import typeTab from '@/view/type/component/typeTab' //分类模板
+import pinpaiTab from '@/view/type/component/pinpaiTab' //品牌模板
+import IndexTab from '@/view/home/component/IndexTab' //首页模板
+import jujiaTab from '@/view/home/component/jujiaTab' //居家模板
+
+import detailsTab from '@/view/detail/detailsTab' //详情摹本
 
 Vue.use(Router)
 
@@ -104,9 +106,10 @@ export default new Router({
             path: '/Login',
             name: 'Login',
             component: Login,
+            //路由拦截
             beforeEnter: (to, form, next) => {
-                console.log(to)
                 var user = window.localStorage["userInfo"];
+                console.log(user)
                 if (!user) {
                     next({
                         path: '/myInfo',
@@ -122,7 +125,15 @@ export default new Router({
         {
             path: '/myInfo',
             name: 'myInfo',
+            params: {
+                toUrl: ''
+            },
             component: myIndex
+        },
+        {
+            path: '/shopDetail/:ProductID',
+            name: 'shopDetail',
+            component: detailsTab,
         }
   ]
 })

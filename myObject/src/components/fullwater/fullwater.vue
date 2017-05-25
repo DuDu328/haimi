@@ -1,25 +1,49 @@
 <template>
     <div class="fullwater">
         <div v-for="item in fullData">
-            <div class="fullwater-head">{{item.Title}}</div>
-            <div class="fullwater-cont">
+            <div class="fullwater-head">
+                <span v-if="item.Title">{{item.Title}}</span>
+            </div>
+
+            <div class="fullwater-cont" v-if="item.Products">
                 <div class="cont-box" v-for="i in item.Products">
                     <dl>
-                        <dt><img :src="i.Pictures"></dt>
-                        <dd>
-                            <p class="shop-name nowrap">{{i.Subject}}</p>
-                            <p class="shop-price">￥{{i.FinalPrice}}</p>
-                        </dd>
+                        <router-link :to="{name:'shopDetail',params:{ProductID:i.ProductID}}">
+                            <dt><img :src="i.Pictures"></dt>
+                            <dd>
+                                <p class="shop-name nowrap">{{i.Subject}}</p>
+                                <p class="shop-price">￥{{i.FinalPrice}}</p>
+                            </dd>
+                        </router-link>
                     </dl>
                 </div>
             </div>
+            <div class="fullwater-cont" v-else>
+                <div class="cont-box" v-for="i in item.Suggest">
+                    <dl>
+                        <router-link :to="{name:'shopDetail',params:{ProductID:i.ProductID}}">
+                            <dt><img :src="i.Pictures"></dt>
+                            <dd>
+                                <p class="shop-name nowrap">{{i.Subject}}</p>
+                                <p class="shop-price">￥{{i.FinalPrice}}</p>
+                            </dd>
+                        </router-link>
+                    </dl>
+                </div>
+            </div>
+
         </div>
     </div>
 </template>
 <script>
     export default {
         name: 'fullwater',
-        props: ['fullData']
+        props: ['fullData'],
+        data() {
+            return {
+                title: '大家都在买'
+            }
+        }
     }
 </script>
 

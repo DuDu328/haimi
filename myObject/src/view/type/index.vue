@@ -37,17 +37,7 @@ import footerNav from '@/components/footer'
     }
 </script>
 <style scope lang='less'>
-    .menu {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
+   
     .nav{
         height: 40px;
         line-height: 40px;

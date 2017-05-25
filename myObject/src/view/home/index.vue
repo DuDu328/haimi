@@ -1,8 +1,8 @@
 <template>
     <div class='m-wrapper menu'>
         <headerNav></headerNav>
-        <div class='m-content main' v-positionFixed>
-            <menuNav :navData="navData"></menuNav>
+        <div class='m-content main'>
+            <menuNav :navData="navData" v-position-static=""></menuNav>
             <router-view></router-view>
         </div>
         <footerNav></footerNav>
@@ -36,18 +36,14 @@
 </script>
 <style scope lang='less'>
     .menu {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
         width: 100%;
         height: 100%;
-        overflow: hidden;
     }
     
     .header {
+        position: absolute;
+        top: 0;
+        width: 100%;
         height: 40px;
         line-height: 40px;
         background: #242424;
@@ -55,16 +51,21 @@
     }
     
     .main {
-        flex: 1;
+        position: absolute;
+        top: 40px;
+        bottom: 45px;
+        width: 100%;
         overflow-y: auto;
         background: #f3f3f3;
-        position: relative;
     }
     
     .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
         height: 40px;
+        background: #fff;
         padding-top: 5px;
-        padding-bottom: 5px;
         display: flex;
         border-top: 1px solid #e6e6e6;
     }

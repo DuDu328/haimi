@@ -11,7 +11,7 @@
                 </div>
                 <div class="cle">
                     <span class="sp1">验证码：</span>
-                    <input type="number" v-model='verification'>
+                    <input type="number" v-model='verification' ref='yz'>
                     <span class="sp2" @click='yanclick' ref='span'>{{tishi}}</span>
                     <span class="tipInfo" ref="tipInfo"></span>
                 </div>
@@ -50,6 +50,10 @@
                     }
                 },
                 blur(Cellphone) {
+
+                    if (Cellphone == "") {
+                        this.$refs.close.className = 'noe';
+                    }
                     var reg = /^1[34578]\d{9}$/;
                     if (Cellphone == "") {
                         this.$refs.close.className = 'noe';
@@ -67,15 +71,21 @@
                     this.$refs.close.className = 'noe'
                 },
                 btn() {
+                    var numbVal = this.$refs.numb.value,
+                        yzVal = this.$refs.yz.value;
                     if (this.Callphone != '' && this.verification != '') {
                         var userData = {
-                            Callphone: '嘟嘟',
-                            verification: 13903245780,
+                            Callphone: numbVal,
+                            verification: yzVal,
                             userphoto: 'photo.jpg'
-                        }
+                        };
+                        //获取拦截到的url地址
                         var url = this.$route.query.to;
-                        console.log(this.$route)
+                        console.log(url)
                         window.localStorage.setItem('userInfo', JSON.stringify(userData))
+                        this.$router.push({
+                            name: url
+                        }); //跳转页面
                     }
 
                 },
@@ -90,9 +100,9 @@
                         sui += parseInt(Math.floor(Math.random() * 10));
                     }
                     this.verification = sui;
-                    that.tishi = num + '秒后重新获取';
+                    that.tishi = '重新获取(' + num + ')';
                     var time = setInterval(function () {
-                        that.tishi = num + '秒后重新获取';
+                        that.tishi = '重新获取(' + num + ')';
                         if (--num == 0) {
                             that.tishi = '重新获取'
                             clearInterval(time)
@@ -127,7 +137,7 @@
     .close:before {
         content: 'x';
         position: absolute;
-        right: 30px;
+        right: 10px;
         width: 15px;
         height: 15px;
         line-height: 13px;
@@ -148,6 +158,8 @@
         }
         .sp2 {
             color: #991f33;
+            position: absolute;
+            right: 10px;
         }
         .sp3 {
             color: #999;

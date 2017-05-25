@@ -25,6 +25,7 @@
         name: 'sectionCont',
         data() {
             return {
+                title: '大家都在买',
                 swiperSlide: [],
                 daily: {
                     Special: [],

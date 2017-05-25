@@ -181,8 +181,8 @@ apiRoutes.get('/pinpaiData', function (req, res) {
     res.json(pinpaiData)
 })
 apiRoutes.get('/shopcarData', function (req, res) {
-    res.json(shopcarData)
-})
+        res.json(shopcarData)
+    })
     // 调用api
 app.use('/api', apiRoutes)
 
