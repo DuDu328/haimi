@@ -7,6 +7,7 @@
                 </a>
                 <span @click="toHome">去首页逛逛</span>
             </div>
+            <div class="fullhead">大家都在买</div>
             <fullwater :fullData="fullData"></fullwater>
         </div>
         <footerNav></footerNav>
@@ -48,6 +49,15 @@
     
     .sec {
         top: 0;
+    }
+    
+    .fullhead {
+        height: 44px;
+        line-height: 44px;
+        background: #fff;
+        text-align: center;
+        margin-bottom: 2px;
+        font-size: 14px;
     }
     
     .shopcar img {

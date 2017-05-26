@@ -1,10 +1,9 @@
 <template>
     <div class="fullwater">
-        <div v-for="item in fullData">
-            <div class="fullwater-head">
-                <span v-if="item.Title">{{item.Title}}</span>
+        <div v-for="(item,index) in fullData">
+            <div class="fullwater-head" v-if="item.Title">
+                <span>{{item.Title}}</span>
             </div>
-
             <div class="fullwater-cont" v-if="item.Products">
                 <div class="cont-box" v-for="i in item.Products">
                     <dl>
@@ -61,13 +60,13 @@
     
     .cont-box {
         width: 50%;
-        padding-top: 5px;
+        padding-bottom: 8px;
         box-sizing: border-box;
         &:nth-child(even) {
-            padding-left: 2.5px;
+            padding-left: 4px;
         }
         &:nth-child(odd) {
-            padding-right: 2.5px;
+            padding-right: 4px;
         }
     }
     
@@ -82,7 +81,6 @@
     
     .cont-box dl dt img {
         width: 100%;
-        height: 100%;
         position: absolute;
     }
     

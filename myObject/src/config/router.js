@@ -9,6 +9,7 @@ import typeTab from '@/view/type/component/typeTab' //分类模板
 import pinpaiTab from '@/view/type/component/pinpaiTab' //品牌模板
 import IndexTab from '@/view/home/component/IndexTab' //首页模板
 import jujiaTab from '@/view/home/component/jujiaTab' //居家模板
+import searchPage from '@/view/home/component/searchPage' //居家模板
 
 import detailsTab from '@/view/detail/detailsTab' //详情摹本
 
@@ -134,6 +135,11 @@ export default new Router({
             path: '/shopDetail/:ProductID',
             name: 'shopDetail',
             component: detailsTab,
+        },
+        {
+            path: '/searchPage/:type',
+            name: 'searchPage',
+            component: searchPage,
         }
   ]
 })

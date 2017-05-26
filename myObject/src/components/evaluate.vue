@@ -11,7 +11,7 @@
             </div>
             <div class="evaluate-cont">{{item.BuyerNote}}</div>
             <!--图片观赏-->
-            <picture :imgData="item.BuyerPictures"></picture>
+            <picture :imgData="item.BuyerPicturesThumb.split(',')"></picture>
             <div class="explain" v-if="item.SellerNote">
                 <p>【卖家解释】：{{item.SellerNote}}</p>
             </div>

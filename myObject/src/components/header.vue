@@ -2,9 +2,9 @@
   <div slot="header" class="header">
     <a>
       <i class="iconfont icon-sousuo text-gray"></i>
-      <input type="text" placeholder="搜索宝贝" maxlength="20">
+      <input type="text" placeholder="搜索宝贝" maxlength="20" v-model="searchInput">
     </a>
-    <a class="searchInput">搜索</a>
+    <router-link class="searchInput" :to="{name:'searchPage',params:{type:'searchInput'}}">搜索</router-link>
   </div>
 </template>
 <script>

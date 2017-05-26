@@ -26,8 +26,9 @@
         <!--baby评分-->
         <div class="product-baby marginb">
             <div class="baby-head">
-                宝贝评分
+                宝贝评分<span class="c_red">{{MemberProductScore}}分</span>
             </div>
+            <!--评论-->
             <div class="baby-evaluate">
                 <evaluate :evaluate="TopReviews"></evaluate>
             </div>
@@ -39,11 +40,27 @@
             <div><img :src="WeixinQRCode" alt=""></div>
             <div v-html='Descriptioin'></div>
         </div>
+        <!--购物车-->
+        <shopCar :Data="shopData" ref="shopCar"></shopCar>
+        <div class="detail-foot">
+            <span class="foot-icon">
+                <a href="/home/index/2" class="border-r"><i class="iconfont icon-shouye"></i></a>
+                <a href="#" class="border-r"><i class="iconfont icon-iconfontwujiaoxing74"></i></a>
+                <a href="#" class="border-r"><i class="iconfont icon-shopcar"></i></a>
+            </span>
+            <span class="border-r" @click="addshop">
+                <a>加入购物车</a>
+            </span>
+            <span class="buy" @click="buyshop">
+                <a>立即购买</a>
+            </span>
+        </div>
     </div>
 </template>
 <script>
     import Swiper from '@/components/swiper/'
     import evaluate from '@/components/evaluate'
+    import shopCar from '@/components/shopcar'
     export default {
         name: 'shopDetail',
         data() {
@@ -54,16 +71,24 @@
                 productSection: '',
                 MonthSalesNum: '',
                 MaxCreditDeduct: '',
+                MemberProductScore: '',
                 Promises: [],
                 PropertySku: [],
                 TopReviews: [],
                 Descriptioin: '',
-                WeixinQRCode: ''
+                WeixinQRCode: '',
+                shopData: {
+                    shopPicture: '',
+                    productPrice: '',
+                    PropertySku: []
+                },
+
             }
         },
         components: {
             Swiper,
-            evaluate
+            evaluate,
+            shopCar
         },
         created() {
             let ProductID = this.$route.params.ProductID;
@@ -71,22 +96,36 @@
                 jsonp: '_callback'
             }).then(function (res) {
                 let data = res.body.data;
-                console.log(data)
+                this.shopData;
                 this.swiperSlide = JSON.parse(data.ProductPictures); //图片轮播
+                this.shopData.shopPicture = this.swiperSlide[0].picture;
+                this.shopData.productPrice = data.FinalAmount; //产品价格
+                this.shopData.PropertySku = data.PropertySku; //商品详情
                 this.productTitle = data.Subject; //产品描述
                 this.productPrice = data.FinalAmount; //产品价格
                 this.productSection = data.FinalPrice; //价格区间
                 this.MonthSalesNum = data.MonthSalesNum; //月销数量
                 this.MaxCreditDeduct = data.MaxCreditDeduct; //积分抵价
+                this.MemberProductScore = data.MemberProductScore; //宝贝评分等级
                 this.Promises = data.Promises; //保障
                 this.PropertySku = data.PropertySku.Properties; //请选择
                 this.TopReviews = data.TopReviews; //评论
                 this.Descriptioin = data.Descriptioin; //商品详情
                 this.WeixinQRCode = data.Mall.WeixinQRCode; //二维码
-                console.log(this.productPrice)
             }, function (res) {
                 alert(res)
             })
+            this.addshop();
+            this.buyshop();
+        },
+        methods: {
+            addshop() {
+                    console.log(this.$refs)
+                        //                    this.$refs.ShopCar.style.display = "block";
+                },
+                buyshop() {
+                    //                    this.$refs.ShopCar.style.display = "block";
+                }
         }
     }
 </script>
@@ -97,6 +136,8 @@
     
     .shop-detail {
         background: #eee;
+        height: 100%;
+        overflow-y: scroll;
     }
     
     .detail-head {
@@ -171,6 +212,7 @@
     /*请选择*/
     
     .chose {
+        position: relative;
         height: 40px;
         line-height: 40px;
         background: #fff;
@@ -206,6 +248,49 @@
             height: 40px;
             line-height: 40px;
             font-size: 14px;
+        }
+    }
+    /*购物车*/
+    
+    .detail-foot {
+        width: 100%;
+        background: #fff;
+        position: absolute;
+        bottom: 0;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        border-top: 1px solid #ccc;
+        span {
+            width: 100%;
+            height: 100%;
+            line-height: 44px;
+            text-align: center;
+            display: inline-block;
+            a {
+                display: inline-block;
+                width: 100%;
+                height: 30px;
+                line-height: 30px;
+                padding-left: 5px;
+                padding-right: 5px;
+                box-sizing: border-box;
+            }
+        }
+        .foot-icon {
+            a {
+                width: 20%;
+            }
+        }
+        .border-r {
+            border-right: 1px solid #ccc;
+        }
+        .buy {
+            background: #801a2a;
+            a {
+                color: #fff;
+            }
         }
     }
 </style>
