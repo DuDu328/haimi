@@ -7,7 +7,7 @@
         <every :Recommend="Recommend"></every>
         <skinCare :SkinWhite="SkinWhite"></skinCare>
         <skinCare :SkinWhite="watchData"></skinCare>
-        <skinCare :SkinWhite="Beauty"></skinCare>
+        <!--        <skinCare :SkinWhite="Beauty"></skinCare>-->
         <fullwater :fullData="fullData"></fullwater>
     </div>
 </template>
@@ -73,7 +73,9 @@
         },
         methods: {
             getIndexData: function () {
-                this.$http.get('/api/indexData', {}).then(function (response) {
+                this.$http.jsonp('http://m.haimi.com/api/ad-module/get?Alias=index_2&platform=WAP', {
+                    jsonp: '_callback'
+                }).then(function (response) {
                     var data = response.body.data;
                     this.swiperSlide = data[0].Records;
                     this.giftData = data[1].Records;
@@ -93,13 +95,12 @@
                     this.watchData = data[9];
                     this.watchData.cont = data[9].Records;
                     this.watchData.fire = data[8].Records;
-                    this.Beauty = data[11];
-                    this.Beauty.cont = data[11].Records;
-                    this.Beauty.fire = data[10].Records;
                 })
             },
             getFullData: function () {
-                this.$http.get('/api/fullData', {}).then(function (response) {
+                this.$http.jsonp('http://m.haimi.com/api/nav/advert-team-products?NavID=2&page=1&pageSize=100&platform=WAP', {
+                    jsonp: '_callback'
+                }).then(function (response) {
                     var data = response.body.data
                     this.fullData = data;
                 })
@@ -109,5 +110,5 @@
 </script>
 
 <style scoped>
-    
+
 </style>

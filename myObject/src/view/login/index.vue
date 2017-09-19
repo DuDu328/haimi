@@ -13,44 +13,122 @@
         <div class="order marginb">
             <div class="order-head">
                 <span>我的订单</span>
-                <a href="#"><span class="text-gray">查看全部订单</span><i class="iconfont icon-jiantou2 text-gray"></i></a>
+                <router-link :to="{name:'money'}">
+                    <span class="text-gray">查看全部订单</span>
+                    <i class="iconfont icon-jiantou2 text-gray"></i>
+                </router-link>
             </div>
             <div class="order-list">
-                <a href="#">
-                    <i class="iconfont icon-daifukuan"></i>
-                    <span>待付款</span>
-                </a>
-                <a href="#">
-                    <i class="iconfont icon-daifahuo"></i>
-                    <span>待发货</span>
-                </a>
-                <a href="#">
-                    <i class="iconfont icon-tn-daishouhuo"></i>
-                    <span>待收货</span>
-                </a>
-                <a href="#">
-                    <i class="iconfont icon-tabsdaipingjia"></i>
-                    <span>待评价</span>
-                </a>
-                <a href="#">
-                    <i class="iconfont icon-tuikuan"></i>
-                    <span>待退款</span>
-                </a>
+                <router-link :to="{name:'money',path:item.Link}" v-for="item in navList">
+                    <i :class="item.icon"></i>
+                    <span>{{item.text}}</span>
+                </router-link>
             </div>
         </div>
         <div class="liginLIst marginb">
             <ul>
-                <li v-for="item in headlist">
-                    <span><i :class="item.icon"></i><span>{{item.cont}}</span></span>
-                    <a href="">
-                        <span class="telephone"></span>
-                        <i :class="item.jiantou"></i>
+                <li>
+                    <a href="/Collection">
+                        <label for="itemCont">
+                            <span class="itemCont">
+                        <i class="iconfont icon-shoucang1 text-gray pl10 pr10"></i>
+                        <span>收藏宝贝</span>
+                            </span>
+                        </label>
+                        <em>
+                            <span class="telephone"></span>
+                            <i class="iconfont icon-jiantou2 text-gray pl10 pr10"></i>
+                        </em>
+                    </a>
+                </li>
+                <li>
+                    <a href="/redPacket">
+                        <label for="itemCont">
+                            <span class="itemCont">
+                        <i class="iconfont icon-daifukuan text-gray pl10 pr10"></i>
+                        <span>红包优惠券</span>
+                            </span>
+                        </label>
+                        <em>
+                            <span class="telephone"></span>
+                            <i class="iconfont icon-jiantou2 text-gray pl10 pr10"></i>
+                        </em>
+                    </a>
+                </li>
+                <li>
+                    <a href="footprint">
+                        <label for="itemCont">
+                            <span class="itemCont">
+                        <i class="iconfont icon-zuji text-gray pl10 pr10"></i>
+                        <span>足迹</span>
+                            </span>
+                        </label>
+                        <em>
+                            <span class="telephone"></span>
+                            <i class="iconfont icon-jiantou2 text-gray pl10 pr10"></i>
+                        </em>
+                    </a>
+                </li>
+                <li>
+                    <a href="integral">
+                        <label for="itemCont">
+                            <span class="itemCont">
+                        <i class="iconfont icon-jifen text-gray pl10 pr10"></i>
+                        <span>积分商城</span>
+                            </span>
+                        </label>
+                        <em>
+                            <span class="telephone"></span>
+                            <i class="iconfont icon-jiantou2 text-gray pl10 pr10"></i>
+                        </em>
+                    </a>
+                </li>
+                <li>
+                    <a href="adress">
+                        <label for="itemCont">
+                            <span class="itemCont">
+                        <i class="iconfont icon-dingwei text-gray pl10 pr10"></i>
+                        <span>收获地址</span>
+                            </span>
+                        </label>
+                        <em>
+                            <span class="telephone"></span>
+                            <i class="iconfont icon-jiantou2 text-gray pl10 pr10"></i>
+                        </em>
+                    </a>
+                </li>
+                <li>
+                    <a href="binding">
+                        <label for="itemCont">
+                            <span class="itemCont">
+                        <i class="iconfont icon-shouji text-gray pl10 pr10"></i>
+                        <span>绑定手机</span>
+                            </span>
+                        </label>
+                        <em>
+                            <span class="telephone"></span>
+                            <i class="iconfont icon-jiantou2 text-gray pl10 pr10"></i>
+                        </em>
+                    </a>
+                </li>
+                <li>
+                    <a href="service">
+                        <label for="itemCont">
+                            <span class="itemCont">
+                        <i class="iconfont icon-zhijiaoyidterji text-gray pl10 pr10"></i>
+                        <span>海蜜客服</span>
+                            </span>
+                        </label>
+                        <em>
+                            <span class="telephone"></span>
+                            <i class="iconfont icon-jiantou2 text-gray pl10 pr10"></i>
+                        </em>
                     </a>
                 </li>
             </ul>
         </div>
         <div class="quit marginb">
-            <a href="/myInfo">退出登录</a>
+            <a @click="quit">退出登录</a>
         </div>
         <footerNav></footerNav>
     </div>
@@ -65,43 +143,41 @@
         },
         data() {
             return {
-                headlist: [
+                navList: [
                     {
-                        "icon": "iconfont icon-shoucang1 text-gray pl10 pr10",
-                        "cont": "收藏宝贝",
-                        "jiantou": "iconfont icon-jiantou2 text-gray pl10 pr10"
+                        text: "待付款",
+                        icon: "iconfont icon-daifukuan",
+                        Link: ""
                     },
                     {
-                        "icon": "iconfont icon-daifukuan text-gray pl10 pr10",
-                        "cont": "红包优惠券",
-                        "jiantou": "iconfont icon-jiantou2 text-gray pl10 pr10"
+                        text: "待发货",
+                        icon: "iconfont icon-daifahuo",
+                        Link: ""
                     },
                     {
-                        "icon": "iconfont icon-zuji text-gray pl10 pr10",
-                        "cont": "足迹",
-                        "jiantou": "iconfont icon-jiantou2 text-gray pl10 pr10"
+                        text: "待收货",
+                        icon: "iconfont icon-tn-daishouhuo",
+                        Link: ""
                     },
                     {
-                        "icon": "iconfont icon-jifen text-gray pl10 pr10",
-                        "cont": "积分商城",
-                        "jiantou": "iconfont icon-jiantou2 text-gray pl10 pr10"
+                        text: "待评价",
+                        icon: "iconfont icon-tabsdaipingjia",
+                        Link: ""
                     },
                     {
-                        "icon": "iconfont icon-dingwei text-gray pl10 pr10",
-                        "cont": "收获地址",
-                        "jiantou": "iconfont icon-jiantou2 text-gray pl10 pr10"
-                    },
-                    {
-                        "icon": "iconfont icon-shouji text-gray pl10 pr10",
-                        "cont": "绑定手机",
-                        "jiantou": "iconfont icon-jiantou2 text-gray pl10 pr10"
-                    },
-                    {
-                        "icon": "iconfont icon-zhijiaoyidterji text-gray pl10 pr10",
-                        "cont": "海蜜客服",
-                        "jiantou": "iconfont icon-jiantou2 text-gray pl10 pr10"
+                        text: "待退款",
+                        icon: "iconfont icon-tuikuan",
+                        Link: ""
                     }
                 ]
+            }
+        },
+        methods: {
+            quit() {
+                window.localStorage.removeItem("userInfo");
+                this.$router.push({
+                    name: 'myInfo'
+                })
             }
         }
     }
@@ -162,12 +238,14 @@
     .liginLIst {
         background: #fff;
         ul li {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             padding: 10px 0 10px 10px;
             border-bottom: 1px solid #eee;
-            a i {
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            em i {
                 font-size: 12px;
             }
         }

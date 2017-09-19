@@ -6,7 +6,7 @@
                     <img class="typeImg" :src="items.Picture" />
                 </div>
                 <div class="typelist" v-else>
-                    <span>{{items.SlideName}}</span>
+                    <router-link :to="{name:'searchPage',params:{Subject:items.SlideName}}">{{items.SlideName}}</router-link>
                 </div>
             </div>
         </div>

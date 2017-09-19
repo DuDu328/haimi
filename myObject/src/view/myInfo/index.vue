@@ -50,19 +50,8 @@
                     }
                 },
                 blur(Cellphone) {
-
                     if (Cellphone == "") {
                         this.$refs.close.className = 'noe';
-                    }
-                    var reg = /^1[34578]\d{9}$/;
-                    if (Cellphone == "") {
-                        this.$refs.close.className = 'noe';
-                        this.$refs.tipInfo.innerHTML = '手机号不能为空';
-                        return
-                    } else if (!reg.test(Cellphone)) {
-                        this.$refs.tipInfo.innerHTML = '手机输入格式不正确';
-                        this.$refs.numb.value = "";
-                        return
                     }
                 },
                 clo() {
@@ -72,8 +61,17 @@
                 },
                 btn() {
                     var numbVal = this.$refs.numb.value,
-                        yzVal = this.$refs.yz.value;
-                    if (this.Callphone != '' && this.verification != '') {
+                        yzVal = this.$refs.yz.value,
+                        reg = /^1[34578]\d{9}$/;
+                    if (this.Cellphone == "") {
+                        this.$refs.close.className = 'noe';
+                        this.$refs.tipInfo.innerHTML = '手机号不能为空';
+                        return
+                    } else if (!reg.test(this.Cellphone)) {
+                        this.$refs.tipInfo.innerHTML = '手机输入格式不正确';
+                        this.$refs.numb.value = "";
+                        return
+                    } else if (this.verification != '') {
                         var userData = {
                             Callphone: numbVal,
                             verification: yzVal,
@@ -81,11 +79,16 @@
                         };
                         //获取拦截到的url地址
                         var url = this.$route.query.to;
-                        console.log(url)
-                        window.localStorage.setItem('userInfo', JSON.stringify(userData))
-                        this.$router.push({
-                            name: url
-                        }); //跳转页面
+                        if (url) {
+                            window.localStorage.setItem('userInfo', JSON.stringify(userData))
+                            this.$router.push({
+                                name: url
+                            }); //跳转页面
+                        } else {
+                            this.$router.push({
+                                name: 'myInfo'
+                            }); //跳转页面
+                        }
                     }
 
                 },

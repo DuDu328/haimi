@@ -17,7 +17,7 @@
                     </dl>
                 </div>
             </div>
-            <div class="fullwater-cont" v-else>
+            <div class="fullwater-cont" v-else-if="item.Suggest">
                 <div class="cont-box" v-for="i in item.Suggest">
                     <dl>
                         <router-link :to="{name:'shopDetail',params:{ProductID:i.ProductID}}">
@@ -30,7 +30,40 @@
                     </dl>
                 </div>
             </div>
+            <div class="fullwater-cont" v-else>
+                <div class="cont-box" v-for="i in item">
+                    <dl v-if="i.Subject">
+                        <router-link :to="{name:'shopDetail',params:{ProductID:i.ProductID}}">
+                            <dt><img :src="i.Pictures"><span v-if="i.MonthSalesNum" class="MonthSales">月销{{i.MonthSalesNum}}件</span></dt>
 
+                        </router-link>
+                        <dd>
+                            <p class="shop-name nowrap">{{i.Subject}}</p>
+                            <p class="shop-price">
+                                <span>￥{{i.FinalPrice}}</span>
+                                <span><i class="iconfont icon-shopcar"></i></span>
+                            </p>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+<!--
+            <div class="cont-box">
+    <dl v-if="item.Subject">
+        <router-link :to="{name:'shopDetail',params:{ProductID:item.ProductID}}">
+            <dt><img :src="item.Pictures"><span v-if="item.MonthSalesNum" class="MonthSales">月销{{item.MonthSalesNum}}件</span></dt>
+
+        </router-link>
+        <dd>
+            <p class="shop-name nowrap">{{item.Subject}}</p>
+            <p class="shop-price">
+                <span>￥{{item.FinalPrice}}</span>
+                <span><i class="iconfont icon-shopcar"></i></span>
+            </p>
+        </dd>
+    </dl>
+</div>
+-->
         </div>
     </div>
 </template>
@@ -77,24 +110,40 @@
     .cont-box dl dt {
         width: 100%;
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:after {
+            content: '';
+            padding-top: 100%;
+            background: #fff;
+        }
+        img {
+            width: 100%;
+            position: absolute;
+        }
     }
     
-    .cont-box dl dt img {
-        width: 100%;
+    .MonthSales {
         position: absolute;
-    }
-    
-    .cont-box dl dt:after {
-        content: "";
-        padding-top: 100%;
-        display: block;
-        width: 100%;
-        background: #fff;
+        bottom: 10px;
+        right: 0;
+        padding: 3px 5px;
+        background: #999;
+        color: #fff;
+        font-size: 10px;
     }
     
     .cont-box dl dd {
         line-height: 24px;
-        padding-left: 10px;
-        padding-right: 10px;
+        p {
+            padding-left: 10px;
+            padding-right: 10px;
+            box-sizing: border-box;
+        }
+        .shop-price {
+            display: flex;
+            justify-content: space-between;
+        }
     }
 </style>

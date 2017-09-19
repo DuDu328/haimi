@@ -1,7 +1,7 @@
 <template>
     <div slot="nav" class="nav-box">
         <div class="nav-list" ref="nav">
-            <router-link v-for="item in navData" :to="item.Link+'/'+item.NavID" class="nav-item" active-class="on">
+            <router-link v-for="(item,val) in navData" :to="item.Link+'/'+item.NavID" class="nav-item" active-class="on">
                 {{item.Title}}
             </router-link>
         </div>

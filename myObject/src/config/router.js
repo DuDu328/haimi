@@ -5,6 +5,17 @@ import typeIndex from '@/view/type/' //分类首页
 import shopIndex from '@/view/shopcar/' //购物车首页
 import myIndex from '@/view/myInfo/' //我的首页
 import Login from '@/view/Login/' //登录首页
+    //-----------------------登录----------------------------------------------
+import money from '@/view/login/component/money' //购物车详情页
+import moneySub from '@/view/login/component/moneySub' //购物车详情页
+import Collection from '@/view/login/component/Collection' //购物车详情页
+import redPacket from '@/view/login/component/redPacket' //购物车详情页
+import maybe from '@/view/login/component/maybe' //购物车详情页
+import use from '@/view/login/component/use' //购物车详情页
+import BeOverdue from '@/view/login/component/BeOverdue' //购物车详情页
+    //-------------------------足迹---------------------------------------------
+import footprint from '@/view/login/component/footprint' //购物车详情页
+
 import typeTab from '@/view/type/component/typeTab' //分类模板
 import pinpaiTab from '@/view/type/component/pinpaiTab' //品牌模板
 import IndexTab from '@/view/home/component/IndexTab' //首页模板
@@ -12,6 +23,10 @@ import jujiaTab from '@/view/home/component/jujiaTab' //居家模板
 import searchPage from '@/view/home/component/searchPage' //居家模板
 
 import detailsTab from '@/view/detail/detailsTab' //详情摹本
+import detailpage from '@/view/detail/detailpage' //详情摹本
+
+//----------------------提交------------------------------------------------
+import Settlement from '@/view/Settlement/'
 
 Vue.use(Router)
 
@@ -101,7 +116,14 @@ export default new Router({
         },
         {
             path: '/shopcar',
-            component: shopIndex
+            component: shopIndex,
+            children: [
+                {
+                    path: '/shopcar/Settlement',
+                    name: 'Settlement',
+                    component: Settlement
+                }
+            ]
         },
         {
             path: '/Login',
@@ -122,6 +144,7 @@ export default new Router({
                     next()
                 }
             }
+
         },
         {
             path: '/myInfo',
@@ -137,9 +160,66 @@ export default new Router({
             component: detailsTab,
         },
         {
-            path: '/searchPage/:type',
+            path: '/searchPage/keyword=:Subject',
             name: 'searchPage',
             component: searchPage,
+        },
+        {
+            path: '/money',
+            name: 'money',
+            redirect: "/money/Pending",
+            component: money,
+            children: [
+                {
+                    path: 'Pending',
+                    component: moneySub
+                },
+                {
+                    path: 'Shipment',
+                    component: moneySub
+                },
+                {
+                    path: 'Harvest',
+                    component: moneySub
+                },
+                {
+                    path: 'evaluation',
+                    component: moneySub
+                },
+                {
+                    path: 'Refundable',
+                    component: moneySub
+                }
+            ]
+        },
+        {
+            path: '/Collection',
+            name: 'Collection',
+            component: Collection
+        },
+        {
+            path: '/redPacket',
+            name: 'redPacket',
+            component: redPacket,
+            children: [
+                {
+                    path: 'maybe',
+                    component: maybe
+                },
+                {
+                    path: 'use',
+                    component: use
+                },
+                {
+                    path: 'BeOverdue',
+                    component: BeOverdue
+                }
+            ]
+        },
+        {
+            path: '/footprint',
+            name: 'footprint',
+            component: footprint
         }
-  ]
+    ]
 })

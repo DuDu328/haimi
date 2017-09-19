@@ -7,7 +7,8 @@ import router from './config/router'
 import positionStatic from './directive/positionStatic'
     // for Vue 1.0
 import VueLazyload from './lib/vueLazyload/vue-lazyload'
-import Vuex from './lib/vuex/vuex.min' //引入vuex
+import Vuex from 'vuex' //引入vuex
+import store from './lib/vuex/store.js'
 Vue.use(VueLazyload, {
     error: 'dist/error.png',
     loading: 'dist/loading.gif',
@@ -17,17 +18,7 @@ Vue.use(vueResource)
 Vue.use(Vuex)
 
 Vue.directive("position-static", positionStatic)
-const store = new Vuex.Store({
-    state: {
-        count: 1
-    },
-    mutations: {
-        increment(state) {
-            // 变更状态
-            state.count++
-        }
-    }
-})
+
 new Vue({
     el: '#app',
     store,

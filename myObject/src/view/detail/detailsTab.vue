@@ -19,9 +19,11 @@
             <span v-for="item in Promises">{{item}}</span>
         </div>
         <div class="chose marginb">
-            请选择
-            <span v-for="item in PropertySku">{{item.Name}}，</span>
-            <i class="iconfont icon-jiantou2"></i>
+            <label for="choseShop" @click="choseShop">
+                请选择
+                <span v-for="item in PropertySku">{{item.Name}}，</span>
+                <a id="choseShop"><i class="iconfont icon-jiantou2"></i></a>
+            </label>
         </div>
         <!--baby评分-->
         <div class="product-baby marginb">
@@ -44,14 +46,14 @@
         <shopCar :Data="shopData" ref="shopCar"></shopCar>
         <div class="detail-foot">
             <span class="foot-icon">
-                <a href="/home/index/2" class="border-r"><i class="iconfont icon-shouye"></i></a>
-                <a href="#" class="border-r"><i class="iconfont icon-iconfontwujiaoxing74"></i></a>
-                <a href="#" class="border-r"><i class="iconfont icon-shopcar"></i></a>
+                <router-link to="/home/index/2" class="border-r"><i class="iconfont icon-shouye"></i></router-link>
+                <router-link to="#" class="border-r"><i class="iconfont icon-iconfontwujiaoxing74"></i></router-link>
+                <router-link to="/shopcar" class="border-r"><i class="iconfont icon-shopcar"></i></router-link>
             </span>
-            <span class="border-r" @click="addshop">
+            <span class="border-r" @click="choseShop">
                 <a>加入购物车</a>
             </span>
-            <span class="buy" @click="buyshop">
+            <span class="buy" @click="choseShop">
                 <a>立即购买</a>
             </span>
         </div>
@@ -78,11 +80,14 @@
                 Descriptioin: '',
                 WeixinQRCode: '',
                 shopData: {
+                    productID: '',
+                    productTitle: '',
                     shopPicture: '',
                     productPrice: '',
-                    PropertySku: []
-                },
-
+                    TopReviews: [],
+                    AttrInfoArray: '',
+                    SkuInfo: []
+                }
             }
         },
         components: {
@@ -92,15 +97,24 @@
         },
         created() {
             let ProductID = this.$route.params.ProductID;
-            this.$http.jsonp("http://m.haimi.com/api/product/detail-cdn?ProductID=" + ProductID + "&platform=WAP", {
+            this.$http.jsonp('http://www.haimi.com/api/product/detail-cdn?ProductID=' + ProductID + '&platform=WAP', {
                 jsonp: '_callback'
             }).then(function (res) {
                 let data = res.body.data;
-                this.shopData;
                 this.swiperSlide = JSON.parse(data.ProductPictures); //图片轮播
-                this.shopData.shopPicture = this.swiperSlide[0].picture;
+
+                this.shopData;
+
+                this.shopData.ProductID = data.ProductID;
+                this.shopData.productTitle = data.Subject;
+                this.shopData.shopPicture = this.swiperSlide[0].picture; //产品图片
                 this.shopData.productPrice = data.FinalAmount; //产品价格
-                this.shopData.PropertySku = data.PropertySku; //商品详情
+
+                this.shopData.AttrInfoArray = data.AttrInfoArray; //产品分类
+                this.shopData.Stock = data.Stock; //产品库存
+                this.shopData.SkuInfo = data.SkuInfo; //产品选项
+
+
                 this.productTitle = data.Subject; //产品描述
                 this.productPrice = data.FinalAmount; //产品价格
                 this.productSection = data.FinalPrice; //价格区间
@@ -115,17 +129,15 @@
             }, function (res) {
                 alert(res)
             })
-            this.addshop();
-            this.buyshop();
+
         },
         methods: {
-            addshop() {
-                    console.log(this.$refs)
-                        //                    this.$refs.ShopCar.style.display = "block";
-                },
-                buyshop() {
-                    //                    this.$refs.ShopCar.style.display = "block";
-                }
+            choseShop() {
+                let shopMark = this.$refs.shopCar.$refs.shopMark;
+                let buyShopCar = this.$refs.shopCar.$refs.buyShopCar;
+                shopMark.style.display = "block";
+                buyShopCar.style.display = "block";
+            }
         }
     }
 </script>
@@ -206,7 +218,7 @@
         span {
             padding-left: 40px;
             background: url("../../static/images/icon.png") no-repeat 15px center;
-            background-size: 16px;
+            background-size: 14px;
         }
     }
     /*请选择*/
@@ -269,7 +281,7 @@
             text-align: center;
             display: inline-block;
             a {
-                display: inline-block;
+                /*                display: inline-block;*/
                 width: 100%;
                 height: 30px;
                 line-height: 30px;

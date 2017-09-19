@@ -2,14 +2,22 @@
   <div slot="header" class="header">
     <a>
       <i class="iconfont icon-sousuo text-gray"></i>
-      <input type="text" placeholder="搜索宝贝" maxlength="20" v-model="searchInput">
+      <input type="text" placeholder="搜索宝贝" maxlength="20">
     </a>
-    <router-link class="searchInput" :to="{name:'searchPage',params:{type:'searchInput'}}">搜索</router-link>
+    <router-link class="searchInput" :to="{name:'searchPage',params:{type:searchCont}}">搜索</router-link>
   </div>
 </template>
 <script>
 export default {
-  name: 'headerNav'
+  name: 'headerNav',
+  data () {
+    return {
+        searchCont:''
+    }
+  },
+  mounted () {
+    this.searchCont;
+  }
 }
 </script>
 <style scoped lang="less">

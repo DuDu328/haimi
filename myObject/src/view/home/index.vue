@@ -52,7 +52,7 @@
     
     .main {
         position: absolute;
-        top: 40px;
+        top: 43px;
         bottom: 45px;
         width: 100%;
         overflow-y: auto;

@@ -1,11 +1,13 @@
 <template>
     <div class="swiper-container swiper">
         <ul class="swiper-wrapper">
+            <!--            <router-link :to="{name:'detailpage',params:{activeID:activeID}}">-->
             <li v-for="item in swiperSlide" class="swiper-slide">
                 <img v-if="item.Picture" :src="item.Picture">
                 <img v-else-if="item.picture" :src="item.picture">
                 <img :src="item" alt="" v-else>
             </li>
+            <!--            </router-link>-->
         </ul>
         <div class="swiper-pagination"></div>
     </div>
@@ -22,6 +24,11 @@
                 swiperObj: ''
             }
         },
+		watch:{
+			$route(to, from){
+				
+			}
+		},
         mounted() {
             this.swiperObj = new Swiper('.swiper', {
                 autoplay: 2000,
